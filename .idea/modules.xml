@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ArticleApp.iml" filepath="$PROJECT_DIR$/ArticleApp.iml" />
+      <module fileurl="file://C:\Users\ratha\Documents\android app\articleApp\ArticleApp.iml" filepath="C:\Users\ratha\Documents\android app\articleApp\ArticleApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\ratha\Documents\android app\articleApp\app\app.iml" filepath="C:\Users\ratha\Documents\android app\articleApp\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/articleApp.iml" filepath="$PROJECT_DIR$/articleApp.iml" />
     </modules>
   </component>
 </project>

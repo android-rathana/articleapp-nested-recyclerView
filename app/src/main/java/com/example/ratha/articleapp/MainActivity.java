@@ -9,8 +9,12 @@ import android.util.Log;
 
 import com.example.ratha.articleapp.adapter.ArticleChildAdapter;
 import com.example.ratha.articleapp.adapter.ParentAdapter;
+import com.example.ratha.articleapp.data.Service.local.database.AppDatabase;
 import com.example.ratha.articleapp.entity.Article;
+import com.example.ratha.articleapp.entity.Category;
+import com.example.ratha.articleapp.entity.CategoryArticle;
 import com.example.ratha.articleapp.entity.ParentArticle;
+import com.example.ratha.articleapp.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,61 @@ public class MainActivity extends AppCompatActivity implements ParentAdapter.Par
         setContentView(R.layout.activity_main);
         setupParentArticleRecyclerView();
         setArticles();
+        
+        //insertUser();
+        getaUser();
+        //insertCatgory();
+        getCategory();
+        //addArticle();
+        getArticle();
+    }
+
+    private void getArticle() {
+        List<CategoryArticle> catArticle=AppDatabase.getDbInstance(this).articleDao().getCategoryWithArticles(15,0);
+        for(CategoryArticle article: catArticle){
+            Log.e(TAG, "getArticle: " +article.articles.get(0).getTitle() +
+                    article.CategoryName+article.user.fullName );
+        }
+    }
+
+    private void addArticle() {
+        String contentText=getResources().getString(R.string.content_text);
+       Article article= new Article("Arsenal ចាញ់ \u200Bតែ\u200Bឡើង\u200B\u200Bវគ្គ\u200B១៦\u200Bក្រុម\u200B Europa League",
+                contentText+contentText,0);
+       article.AuthorId=1;
+       article.categoryId=1;
+       AppDatabase.getDbInstance(this).articleDao().add(article);
+    }
+
+    private void getCategory() {
+        List<Category> categories=AppDatabase.getDbInstance(this).categoryDao().getAll();
+        for( Category cat: categories){
+            Log.e(TAG, "getCategory: "+cat.toString() );
+        }
+    }
+
+    private void insertCatgory() {
+        Category cat=new Category();
+        cat.name="Hot News";
+        cat.desc="this category for hot news";
+
+        Category cat2=new Category();
+        cat2.name="Social News";
+        cat2.desc="this category for Social News";
+        AppDatabase.getDbInstance(this).categoryDao().add(cat,cat2);
+    }
+
+    private void getaUser() {
+       User user= AppDatabase.getDbInstance(this).userDao().getOne(1);
+        Log.e(TAG, "getaUser: "+user.toString() );
+    }
+
+    private void insertUser() {
+
+        AppDatabase db= AppDatabase.getDbInstance(this);
+
+        db.userDao().add(new User("rathana voy","rathanavoy@mgail.com",
+                "male","099427776"));
     }
 
     private void setupParentArticleRecyclerView() {

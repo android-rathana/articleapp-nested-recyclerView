@@ -1,5 +1,9 @@
 package com.example.ratha.articleapp.entity;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,30 +13,48 @@ import java.util.List;
  * Created by ratha on 2/23/2018.
  */
 
+@Entity(tableName = "article")
 public class Article implements Parcelable {
-    private int id;
-    private String title;
-    private String contentText;
-    private int thumb;
-    private int categoryId;
-    private int AuthorId;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public String title;
+    @ColumnInfo(name = "content_text")
+    public String contentText;
+    @ColumnInfo(name = "thumbnail")
+    public int thumb;
+    @ColumnInfo(name = "category_id")
+    public int categoryId;
+    @ColumnInfo(name = "author_id")
+    public int AuthorId;
 
+    public Article(){}
+    @Ignore
     public Article(String title, String contentText, int thumb) {
         this.title = title;
         this.contentText = contentText;
         this.thumb = thumb;
     }
-
+    @Ignore
     public Article(String title) {
         this.title = title;
     }
+    @Ignore
     public Article(String title, String contentText) {
         this.title = title;
         this.contentText = contentText;
     }
+    @Ignore
     public Article(String title, int thumb) {
         this.title = title;
         this.thumb=thumb;
+    }
+    public Article(int id,String title, String contentText, int thumb, int categoryId, int authorId) {
+        this.id=id;
+        this.title = title;
+        this.contentText = contentText;
+        this.thumb = thumb;
+        this.categoryId = categoryId;
+        AuthorId = authorId;
     }
     public Article(String title, String contentText, int thumb, int categoryId, int authorId) {
         this.title = title;
@@ -42,7 +64,7 @@ public class Article implements Parcelable {
         AuthorId = authorId;
     }
 
-
+    @Ignore
     protected Article(Parcel in) {
         id = in.readInt();
         title = in.readString();
